@@ -63,3 +63,7 @@ To update used packages
 $ cd <project-root>
 $ npm run update # will run: npx npm-check-updates -u
 ```
+
+## Project structure
+
+![Project strucrure](ProjectStructure.png)
