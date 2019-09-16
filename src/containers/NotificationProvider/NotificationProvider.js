@@ -1,31 +1,27 @@
-import { useCallback } from 'react';
-import { useEvent } from 'react-use';
 import { useDispatch } from 'react-redux';
 
 import { authActions } from '../../redux/auth/actions';
+import { useEventListener } from '../../lib/event-bus';
 
 const NotificationProvider = () => {
 
 	const dispatch = useDispatch();
 
-	const onShowNotification = useCallback((event) => {
-		const { detail } = event;
-		const { id, type, text } = detail;
-
+	const onShowNotification = ({ id, type, text }) => {
 		console.log('Notification: ', {
 			id,
 			type,
 			text,
 		});
-	}, []);
+	};
 
-	const onThrowUnauthorized = useCallback(() => {
+	const onThrowUnauthorized = () => {
 		dispatch(authActions.logout());
-	}, [dispatch]);
+	};
 
-	useEvent('showNotification', onShowNotification, window);
-	useEvent('throwUnauthorized', onThrowUnauthorized, window);
-	//useEvent('showConfirm', onShowConfirm, window);
+	useEventListener('showNotification', onShowNotification);
+	useEventListener('throwUnauthorized', onThrowUnauthorized);
+	//useEventListener('showConfirm', onShowConfirm);
 
 	return null;
 };

@@ -6,6 +6,8 @@ import { appActions } from '../../redux/app/actions';
 import { selectUI } from '../../redux/app/selectors';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
 
+import { EventProvider } from '../../lib/event-bus';
+
 import { PublicRoutes } from '../../routes';
 import { AppLoader } from '../../components/loaders';
 import { Root } from '../Root';
@@ -23,13 +25,13 @@ const App = () => {
 	});
 
 	return (
-		<>
+		<EventProvider>
 			{isLoggedIn && <Root />}
 			{!isLoggedIn && <PublicRoutes />}
 
 			<NotificationProvider />
 			<AppLoader visible={loading} />
-		</>
+		</EventProvider>
 	);
 };
 

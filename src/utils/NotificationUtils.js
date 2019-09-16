@@ -1,18 +1,16 @@
 import uuid from 'uuid/v4';
+
+import { eventEmitter } from '../lib/event-bus';
 import { NOTIFICATION_TYPES } from '../constants/notifications';
 
 class NotificationUtils {
 
 	static emitEvent(type, text) {
-		const event = new CustomEvent('showNotification', {
-			detail: {
-				id: uuid(),
-				type,
-				text,
-			},
+		eventEmitter.emit('showNotification', {
+			id: uuid(),
+			type,
+			text,
 		});
-
-		window.dispatchEvent(event);
 	}
 
 	static success(text) {
@@ -32,18 +30,11 @@ class NotificationUtils {
 	}
 
 	static confirm(options = {}) {
-		const event = new CustomEvent('showConfirm', {
-			detail: {
-				...options,
-			},
-		});
-
-		window.dispatchEvent(event);
+		eventEmitter.emit('showConfirm', options);
 	}
 
 	static throwUnauthorized() {
-		const event = new CustomEvent('throwUnauthorized');
-		window.dispatchEvent(event);
+		eventEmitter.emit('throwUnauthorized');
 	}
 }
 

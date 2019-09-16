@@ -39,6 +39,7 @@ feel free to choose any your like.
 - [axios](https://www.npmjs.com/package/axios)
 - [faker](https://www.npmjs.com/package/faker)
 - [lodash](https://www.npmjs.com/package/lodash)
+- [mitt](https://www.npmjs.com/package/mitt)
 - [uuid](https://www.npmjs.com/package/uuid)
 
 ### Not used, but preferable
