@@ -1,7 +1,7 @@
 import createSagaMiddleware from 'redux-saga';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { createBrowserHistory } from 'history';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router'
 
 import { isProduction } from '../config';
 
@@ -24,7 +24,7 @@ const composeEnhancers = (
 const store = createStore(
 	combineReducers({
 		...reducers,
-		router: routerReducer,
+		router: connectRouter(history),
 	}),
 	composeEnhancers(applyMiddleware(...middlewares)),
 );
@@ -33,4 +33,5 @@ sagaMiddleware.run(rootSaga);
 
 export {
 	store,
+	history,
 };

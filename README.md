@@ -13,37 +13,37 @@ feel free to choose any your like.
 ## Used packages
 
 ### Routing
-- [react-router](https://www.npmjs.com/package/react-router)
-- [react-router-dom](https://www.npmjs.com/package/react-router-dom)
-- [react-router-redux](https://www.npmjs.com/package/react-router-redux)
+- [react-router](https://reacttraining.com/react-router/)
+- [react-router-dom](https://reacttraining.com/react-router/)
+- [connected-react-router](https://github.com/supasate/connected-react-router#readme)
 
 ### State management and side-effects
-- [redux](https://www.npmjs.com/package/redux)
-- [react-redux](https://www.npmjs.com/package/react-redux)
-- [redux-saga](https://www.npmjs.com/package/redux-saga)
-- [reselect](https://www.npmjs.com/package/reselect)
-- [seamless-immutable](https://www.npmjs.com/package/seamless-immutable)
+- [redux](https://redux.js.org/)
+- [react-redux](https://react-redux.js.org/)
+- [redux-saga](https://redux-saga.js.org)
+- [reselect](https://github.com/reduxjs/reselect#readme)
+- [seamless-immutable](https://github.com/rtfeldman/seamless-immutable)
 
 ### Styling
-- [classnames](https://www.npmjs.com/package/classnames)
-- [styled-components](https://www.npmjs.com/package/styled-components)
+- [classnames](https://github.com/JedWatson/classnames#readme)
+- [styled-components](https://www.styled-components.com)
 
 ### Handling forms
-- [formik](https://www.npmjs.com/package/formik)
-- [yup](https://www.npmjs.com/package/yup)
+- [formik](https://jaredpalmer.com/formik/)
+- [yup](https://github.com/jquense/yup)
 
 ### Custom Hooks
-- [react-use](https://www.npmjs.com/package/react-use)
+- [react-use](https://streamich.github.io/react-use)
 
 ### Utils
-- [axios](https://www.npmjs.com/package/axios)
-- [faker](https://www.npmjs.com/package/faker)
-- [lodash](https://www.npmjs.com/package/lodash)
-- [mitt](https://www.npmjs.com/package/mitt)
-- [uuid](https://www.npmjs.com/package/uuid)
+- [axios](https://github.com/axios/axios)
+- [faker](https://github.com/Marak/Faker.js#readme)
+- [lodash](https://lodash.com)
+- [mitt](https://github.com/developit/mitt)
+- [uuid](https://github.com/kelektiv/node-uuid#readme)
 
 ### Not used, but preferable
-- [date-fns](https://www.npmjs.com/package/date-fns)
+- [date-fns](https://date-fns.org/)
 
 ## Cloning and updating
 

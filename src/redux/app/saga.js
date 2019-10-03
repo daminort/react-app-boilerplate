@@ -1,5 +1,5 @@
 import { all, takeLatest, put, call } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import { AuthService } from '../../services/AuthService';
 import { UI_ROUTES } from '../../constants/routes';
