@@ -64,6 +64,12 @@ $ cd <project-root>
 $ npm run update # will run: npx npm-check-updates -u
 ```
 
+> Note that `npm run update` updates `package.json` only,
+> so you will need to install new versions manually after that:
+> ```shell script
+> $ npm install
+> ```
+
 ## Project structure
 
 ![Project strucrure](ProjectStructure.png)
