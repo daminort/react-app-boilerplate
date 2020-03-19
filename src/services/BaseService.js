@@ -1,65 +1,151 @@
-import { agent } from './agent';
+import axios from 'axios';
+
+import { API_URL } from '../config';
+import { CUSTOM_EVENTS } from '../constants/customEvents';
+import { STATUS_CODES } from '../constants/statusCodes';
 
 import { NotificationUtils } from '../utils/NotificationUtils';
+import { StorageUtils } from '../utils/StorageUtils';
+import { eventEmitter } from '../lib/event-bus';
+import { capitalize } from '../lib/lodash';
 
 class BaseService {
 
-	constructor(url) {
-		this.url = url;
-		this.agent = agent;
+	baseServiceURL = API_URL;
+
+	constructor(url = '') {
+		if (url) {
+			this.baseServiceURL = `${API_URL}${url}`;
+		}
+
+		this.processError = this.processError.bind(this);
+
+		this.list = this.list.bind(this);
+		this.entity = this.entity.bind(this);
+		this.create = this.create.bind(this);
+		this.update = this.update.bind(this);
+		this.delete = this.delete.bind(this);
 	}
 
-	find = async (params = {}) => {
-		try {
-			const result = await agent.get(this.url, { params });
-			return result.data;
+	get baseURL() {
+		return this.baseServiceURL;
+	}
 
-		} catch (err) {
-			NotificationUtils.error(err.errorText || err.message);
+	get agent() {
+		const headers = {};
+		const accessToken = StorageUtils.restoreToken();
+		if (accessToken) {
+			headers.Authorization = `Bearer ${accessToken}`;
+		}
+
+		return axios.create({
+			baseURL: this.baseURL,
+			headers,
+		});
+	}
+
+	processError(error) {
+		const accessToken = StorageUtils.restoreToken();
+
+		// The request was made and the server responded with a status code
+		// that falls out of the range of 2xx
+		let showNotification = true;
+		const status = error?.response?.status || null;
+		if (status === STATUS_CODES.unauthorized && accessToken) {
+			eventEmitter.emit(CUSTOM_EVENTS.unauthorized);
+			showNotification = false;
+		}
+
+		const serverMessage = error?.response?.data?.error || error.message;
+		if (serverMessage && showNotification) {
+			const resMessage = (typeof serverMessage === 'string') ? serverMessage : JSON.stringify(serverMessage);
+			NotificationUtils.error('Error', capitalize(resMessage));
+		}
+
+		console.dir(error);
+	}
+
+	processResponse(response) {
+		const { data: axiosData } = response; // 'data' from Axios
+		const { data } = axiosData; // 'data' from our backend: { status: 200, data: {...} }
+
+		return data || axiosData;
+	}
+
+	async list(params = {}) {
+		try {
+			const response = await this.agent.get('', {
+				params,
+			});
+
+			const result = this.processResponse(response);
+			return Promise.resolve(result);
+
+		} catch (error) {
+			this.processError(error);
 			return null;
 		}
 	}
 
-	findByID = async (id, params = {}) => {
+	async entity(id, params = {}) {
+		const url = `/${id}`;
 		try {
-			const result = await agent.get(`${this.url}/${id}`, { params });
-			return result.data;
+			const response = await this.agent.get(url, {
+				params,
+			});
 
-		} catch (err) {
-			NotificationUtils.error(err.errorText || err.message);
+			const result = this.processResponse(response);
+			return Promise.resolve(result);
+
+		} catch (error) {
+			this.processError(error);
 			return null;
 		}
 	}
 
-	create = async (data, params = {}) => {
+	async create(data = {}) {
 		try {
-			const result = await agent.post(this.url, data, { params });
-			return result.data;
+			const response = await this.agent.post('', {
+				...data,
+			});
 
-		} catch (err) {
-			NotificationUtils.error(err.errorText || err.message);
+			const result = this.processResponse(response);
+			return Promise.resolve(result);
+
+		} catch (error) {
+			this.processError(error);
 			return null;
 		}
 	}
 
-	update = async (id, data, params = {}) => {
+	async update(id, data = {}) {
+		const url = `/${id}`;
 		try {
-			const result = await agent.put(`${this.url}/${id}`, data, { params });
-			return result.data;
+			const response = await this.agent.put(url, {
+				...data,
+			});
 
-		} catch (err) {
-			NotificationUtils.error(err.errorText || err.message);
+			const result = this.processResponse(response);
+			return Promise.resolve(result);
+
+		} catch (error) {
+			this.processError(error);
 			return null;
 		}
 	}
 
-	remove = async (id) => {
+	async delete(id, params = {}) {
+		const url = `/${id}`;
 		try {
-			const result = await agent.delete(`${this.url}/${id}`);
-			return result.data;
+			const response = await this.agent.delete(url, {
+				params,
+			});
 
-		} catch (err) {
-			NotificationUtils.error(err.errorText || err.message);
+			const result = this.processResponse(response);
+			return Promise.resolve(result);
+
+		} catch (error) {
+			this.processError(error);
 			return null;
 		}
 	}

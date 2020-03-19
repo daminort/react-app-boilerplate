@@ -1,7 +1,7 @@
 # react-app-boilerplate
 A boilerplate for faster creating React applications
 
-This boilerplate is quite workable template. It allow to:
+This boilerplate is quite workable template. It allows to:
 - login user (used fake user data via `faker`)
 - logout
 - render header, main content and footer
@@ -13,7 +13,6 @@ feel free to choose any your like.
 ## Used packages
 
 ### Routing
-- [react-router](https://reacttraining.com/react-router/)
 - [react-router-dom](https://reacttraining.com/react-router/)
 - [connected-react-router](https://github.com/supasate/connected-react-router#readme)
 
@@ -25,7 +24,7 @@ feel free to choose any your like.
 - [seamless-immutable](https://github.com/rtfeldman/seamless-immutable)
 
 ### Styling
-- [classnames](https://github.com/JedWatson/classnames#readme)
+- [clsx](https://github.com/lukeed/clsx#readme)
 - [styled-components](https://www.styled-components.com)
 
 ### Handling forms
@@ -69,6 +68,23 @@ $ npm run update # will run: npx npm-check-updates -u
 > ```shell script
 > $ npm install
 > ```
+
+## Available scripts (apart from standard ones and updating scripts)
+
+```shell script
+$ npm run lint # start linter for `src` folder
+$ npm run lint-fix # start linter with fixes for `src` folder
+```
+
+## Using with `Docker` and `Docker-compose`
+
+You can run project in `Docker` container in development mode:
+
+```shell script
+$ docker-compose up --build
+$ # or
+$ docker-compose up
+```
 
 ## Project structure
 

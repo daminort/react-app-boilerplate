@@ -61,7 +61,7 @@ class ThemeUtils {
 	static darkest(hex) {
 		return ThemeUtils.luminance(hex, -0.5);
 	}
-};
+}
 
 export default ThemeUtils;
 export { ThemeUtils };

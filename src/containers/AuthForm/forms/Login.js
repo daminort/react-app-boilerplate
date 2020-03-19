@@ -29,39 +29,42 @@ const Login = () => {
 			initialValues={initValues}
 			validationSchema={loginSchema}
 			onSubmit={onSubmit}
-			render={() => {
+		>
+			{() => {
 				return (
 					<Form id="login-form">
 						<h3>
 							Login
 						</h3>
 						<div className="field">
-							<Field
-								name="email"
-								render={(fieldProps) => (
-									<Input
-										required
-										autoComplete="email"
-										placeholder="Enter your E-mail"
-										{...fieldProps}
-									/>
-								)}
-							/>
+							<Field name="email">
+								{fieldProps => {
+									return (
+										<Input
+											required
+											autoComplete="email"
+											placeholder="Enter your E-mail"
+											{...fieldProps}
+										/>
+									);
+								}}
+							</Field>
 						</div>
 
 						<div className="field">
-							<Field
-								name="password"
-								render={(fieldProps) => (
-									<Input
-										required
-										autoComplete="password"
-										type="password"
-										placeholder="Enter your Password"
-										{...fieldProps}
-									/>
-								)}
-							/>
+							<Field name="password">
+								{fieldProps => {
+									return (
+										<Input
+											required
+											autoComplete="password"
+											type="password"
+											placeholder="Enter your Password"
+											{...fieldProps}
+										/>
+									);
+								}}
+							</Field>
 						</div>
 						<div className="footer">
 							<Link to={UI_ROUTES.register}>Register</Link>
@@ -70,7 +73,7 @@ const Login = () => {
 					</Form>
 				);
 			}}
-		/>
+		</Formik>
 	);
 };
 

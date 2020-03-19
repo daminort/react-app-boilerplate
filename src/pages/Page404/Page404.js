@@ -24,3 +24,4 @@ Page404.defaultProps = {
 
 export default Page404;
 export { Page404 };
+

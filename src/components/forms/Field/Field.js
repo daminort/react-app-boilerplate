@@ -1,6 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import cn from 'classnames';
+import clsx from 'clsx';
 
 import { Wrapper } from './Field.style';
 
@@ -13,11 +13,11 @@ const Field = (props) => {
 
 	const isError = Boolean(error);
 
-	const wrapperClass = cn('form-field', {
+	const wrapperClass = clsx('form-field', {
 		'no-margin': noMargin,
 		'error': isError,
 	});
-	const errorClass = cn('form-error', {
+	const errorClass = clsx('form-error', {
 		'visible': isError,
 	});
 

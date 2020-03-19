@@ -38,7 +38,7 @@ class ReduxUtils {
 			return action;
 		};
 	}
-};
+}
 
 export default ReduxUtils;
 export { ReduxUtils };

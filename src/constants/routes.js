@@ -2,6 +2,7 @@ export const API_ROUTES = {
 	root: '/',
 
 	// Auth
+	auth: '/auth',
 	authLogin: '/login',
 	authProfile: '/profile',
 };

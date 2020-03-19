@@ -1,38 +1,44 @@
 import { API_ROUTES } from '../constants/routes';
-import { NotificationUtils } from '../utils/NotificationUtils';
 import { BaseService } from './BaseService';
 
 class AuthService extends BaseService {
-	constructor() {
-		super(API_ROUTES.root);
+
+	constructor(url) {
+		super(url);
+		this.login = this.login.bind(this);
+		this.profile = this.profile.bind(this);
 	}
 
-	profile = async () => {
-		const { agent } = this;
+	async login(credentials) {
 		try {
-			const { data } = await agent.get(API_ROUTES.authProfile);
-			return data;
+			const response = await this.agent.post('', {
+				...credentials,
+			});
 
-		} catch (err) {
-			NotificationUtils.error(err.errorText || err.message);
+			const result = this.processResponse(response);
+			return Promise.resolve(result);
+
+		} catch (error) {
+			this.processError(error);
 			return null;
 		}
 	}
 
-	login = async (credentials) => {
-		const { agent } = this;
+	async profile() {
 		try {
-			const { data } = await agent.post(API_ROUTES.login, credentials);
-			return data.accessToken;
+			const response = await this.agent.get(API_ROUTES.authProfile);
 
-		} catch (err) {
-			NotificationUtils.error(err.errorText || err.message);
+			const result = this.processResponse(response);
+			return Promise.resolve(result);
+
+		} catch (error) {
+			this.processError(error);
 			return null;
 		}
 	}
 }
 
-const Service = new AuthService();
+const ServiceInstance = new AuthService(API_ROUTES.auth);
 
-export default Service;
-export { Service as AuthService };
+export default ServiceInstance;
+export { ServiceInstance as AuthService };

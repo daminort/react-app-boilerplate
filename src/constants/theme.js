@@ -42,5 +42,5 @@ export const THEME = {
 	height: {
 		header: 48,
 		footer: 32,
-	}
+	},
 };

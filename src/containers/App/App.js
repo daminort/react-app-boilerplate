@@ -11,7 +11,6 @@ import { EventProvider } from '../../lib/event-bus';
 import { PublicRoutes } from '../../routes';
 import { AppLoader } from '../../components/loaders';
 import { Root } from '../Root';
-import { NotificationProvider } from '../NotificationProvider';
 
 const App = () => {
 
@@ -29,7 +28,6 @@ const App = () => {
 			{isLoggedIn && <Root />}
 			{!isLoggedIn && <PublicRoutes />}
 
-			<NotificationProvider />
 			<AppLoader visible={loading} />
 		</EventProvider>
 	);
